@@ -1,10 +1,13 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
+import os
+from keepalive import keep_alive
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix=["!", "?", ".", "$"], intents= intents, help_command=None)
-
+token = os.environ.get("TOKEN")
+keep_alive()
 @bot.event
 async def on_ready():
     try:
@@ -88,4 +91,4 @@ async def unban_slash(interaction: discord.Interaction, user_input : str):
               await interaction.send(f"{user.name} is unbanned from the server")
         else:
             await interaction.send(f"Can't find user {user.name}")
-bot.run("MTQ2Mjg0MDIyNjcxOTMzODYzMA.GQcbLK.GfzVITK61Dp4Ow5WsWZ-WKf6DsMFG1VQjQyBuA")
+bot.run(token)
